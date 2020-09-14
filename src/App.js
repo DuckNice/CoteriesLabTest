@@ -7,20 +7,22 @@ import UserListPage from "./pages/UserListPage";
 import UserPage from "./pages/UserPage";
 //CSS
 import "./css/App.css";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   return (
     <div className="App">
-      <div className="ContentBody">
-        <Router>
+      <Router>
+        <NavBar />
+        <div className="ContentBody">
           <Switch>
             <Route path="/" component={ArticleListPage} exact />
             <Route path="/articles" component={ArticleListPage} />
             <Route path="/users/" component={UsersRoute} />
             <Route component={NotFoundPage} />
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
     </div>
   );
 };
