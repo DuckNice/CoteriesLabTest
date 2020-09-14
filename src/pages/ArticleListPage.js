@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import EntryEdit from "../components/EntryEdit";
 import "../css/Articles.css";
 
-//TODO: fetch calls.
+//TODO: fetch calls in component. Only fetch the right indexes..
 const Articles = [
   {
     userID: 1,
@@ -50,7 +51,6 @@ const Users = [
 ];
 
 //TODO: Match userID to username.
-
 class ArticleListPage extends Component {
   state = { articleData: Articles, userData: Users };
 
@@ -64,14 +64,33 @@ class ArticleListPage extends Component {
     });
   };
 
+  setArticle = (text, id) => {
+    const newArticleData = this.state.articleData;
+    newArticleData[id].text = text;
+
+    this.setState({
+      articleData: newArticleData,
+    });
+  };
+
   render() {
     const table = this.state.articleData.map((row, index) => {
       const userLink = `users/${row.userID}`;
+
       return (
         <div className="entry" key={index}>
-          <h3>{row.text}</h3>
+          {/*TODO: Change between edit bar and fixed row.*/}
+          <h3>
+            <EntryEdit
+              text={row.text}
+              id={index}
+              submit={(text, id) => this.setArticle(text, id)}
+            />
+            {row.text}
+          </h3>
           <Link to={userLink}>Written by {row.username}</Link>
           <button onClick={() => this.removeArticle(index)}>Delete</button>
+          <hr />
         </div>
       );
     });
