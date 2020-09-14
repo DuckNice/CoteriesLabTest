@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 //Paging, components
 import ArticleListPage from "./pages/ArticleListPage";
@@ -9,14 +9,69 @@ import UserPage from "./pages/UserPage";
 import "./css/App.css";
 import NavBar from "./components/NavBar";
 
+//TODO: fetch calls in the relevant pages.
+const Articles = [
+  {
+    userID: 1,
+    text: "This article is short.",
+  },
+  {
+    userID: 2,
+    text: "Man, this article is so long ow mah gawd!!",
+  },
+  { userID: 1, text: "This article is boring." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+  { userID: 2, text: "This article is a copy." },
+];
+
+const Users = [
+  { userID: 1, username: "yolo", email: "yo@lo.com" },
+  { userID: 2, username: "zum_zum", email: "zum@zum.dk" },
+];
+
 const App = () => {
+  const [users, setUsers] = useState({ Users });
+  const [articles, setArticles] = useState({ Articles });
+
   return (
     <div className="App">
       <Router>
         <NavBar />
         <div className="ContentBody">
           <Switch>
-            <Route path="/" component={ArticleListPage} exact />
+            <Route path="/" exact>
+              <ArticleListPage
+                userData={users}
+                setUserData={setUsers}
+                articleData={articles}
+                setArticleData={setArticles}
+              />
+            </Route>
             <Route path="/articles" component={ArticleListPage} />
             <Route path="/users/" component={UsersRoute} />
             <Route component={NotFoundPage} />
